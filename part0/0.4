@@ -1,0 +1,26 @@
+```mermaid
+sequenceDiagram
+    participant browser
+    participant server
+    participant user
+
+    user->>browser: Writing a new note into the text field and clicking "Save"
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    activate server
+    server->>browser: 302 Redirect https://studies.cs.helsinki.fi/exampleapp/notes
+    deactivate server
+
+    Note right of browser: Reloading the browser 
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    server->>browser: HTML document
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server->>browser: Updated JSON file
+    deactivate server
+
+    Note right of browser: The browser shows the new note
